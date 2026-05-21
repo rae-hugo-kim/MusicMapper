@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MusicMapper Thin Slice — Sample Maps & Comparison Pages</title>
+<style>
+:root {
+  --c1: #E63946; --c2: #457B9D; --c3: #F1A208; --c4: #2A9D8F; --c5: #6A4C93;
+  --c6: #B71C2C; --c7: #2C5570;
+  --text: #111; --muted: #666; --soft: #888; --line: #E5E5E5;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: 'Pretendard', 'Inter', system-ui, -apple-system, sans-serif;
+  background: #FAFAFA; color: var(--text); line-height: 1.5;
+}
+header.app-head {
+  background: #fff; border-bottom: 1px solid var(--line);
+  padding: 16px 24px; position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 24px;
+}
+header.app-head h1 { font-size: 18px; margin: 0; font-weight: 700; }
+header.app-head .badge { font-size: 12px; color: var(--muted); padding: 2px 8px; border: 1px solid var(--line); border-radius: 4px; }
+nav.tabs { display: flex; gap: 4px; margin-left: auto; }
+nav.tabs button {
+  padding: 8px 16px; border: 1px solid var(--line); background: #fff; cursor: pointer;
+  font-size: 14px; border-radius: 6px; font-family: inherit;
+}
+nav.tabs button.active { background: var(--text); color: #fff; border-color: var(--text); }
+main { max-width: 1280px; margin: 0 auto; padding: 24px; }
+.intro { color: var(--muted); font-size: 14px; margin-bottom: 24px; }
+.intro code { background: #fff; padding: 2px 6px; border: 1px solid var(--line); border-radius: 4px; font-size: 13px; }
+
+/* Map cards */
+.map-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px;
+  margin-bottom: 32px; overflow: hidden;
+}
+.map-card-head {
+  padding: 16px 24px; display: flex; align-items: center; gap: 16px; border-bottom: 1px solid var(--line);
+}
+.map-card-head .id { font-size: 12px; color: var(--muted); }
+.map-card-head .title { font-size: 16px; font-weight: 600; margin: 0; }
+.map-card-head .download {
+  margin-left: auto; padding: 8px 16px; background: var(--c4); color: #fff;
+  border: none; border-radius: 6px; cursor: pointer; font-size: 14px; font-family: inherit;
+}
+.map-card-head .download:hover { background: #1E7E72; }
+.map-card svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+
+/* Comparison pages */
+.compare-card {
+  background: #fff; border: 1px solid var(--line); border-radius: 12px; margin-bottom: 32px;
+  overflow: hidden;
+}
+.compare-card .frame-head {
+  padding: 12px 24px; background: #F5F5F5; font-size: 13px; color: var(--muted);
+  display: flex; align-items: center; gap: 12px;
+}
+.compare-card .frame-head .id { font-weight: 600; color: var(--text); }
+.compare-card .frame-head .copy-btn {
+  margin-left: auto; padding: 4px 12px; background: #fff; border: 1px solid var(--line);
+  border-radius: 4px; cursor: pointer; font-size: 12px; font-family: inherit;
+}
+.compare-card .frame-head .download-png {
+  padding: 4px 12px; background: var(--c4); color: #fff; border: none;
+  border-radius: 4px; cursor: pointer; font-size: 12px; font-family: inherit;
+}
+.compare-frame {
+  padding: 48px 64px; background: #fff;
+}
+.compare-frame.mobile { padding: 24px 16px; max-width: 375px; margin: 0 auto; border-left: 1px dashed var(--line); border-right: 1px dashed var(--line); }
+.compare-frame .logo { font-size: 24px; font-weight: 700; margin-bottom: 32px; }
+.compare-frame h1 { font-size: 32px; font-weight: 700; margin: 0 0 8px; }
+.compare-frame .caption { font-size: 16px; color: var(--muted); font-style: italic; margin-bottom: 32px; }
+.compare-frame .sample-area {
+  border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-bottom: 48px;
+  background: #FAFAFA;
+}
+.compare-frame .sample-area svg { display: block; width: 100%; height: auto; }
+.compare-frame .cta-section h2 { font-size: 24px; font-weight: 700; margin: 0 0 24px; }
+.compare-frame .cta-btn {
+  display: inline-block; padding: 16px 40px; background: var(--c4); color: #fff;
+  border-radius: 12px; font-size: 18px; font-weight: 700; text-decoration: none;
+  cursor: pointer; border: none; font-family: inherit;
+}
+.compare-frame .cta-btn:hover { background: #1E7E72; }
+.compare-frame .subtext { font-size: 14px; color: var(--soft); margin-top: 12px; }
+.compare-frame .footer { margin-top: 64px; padding-top: 24px; border-top: 1px solid var(--line); font-size: 12px; color: #999; text-align: center; }
+.compare-frame.mobile h1 { font-size: 24px; }
+.compare-frame.mobile .caption { font-size: 14px; margin-bottom: 24px; }
+.compare-frame.mobile .sample-area { margin-bottom: 32px; padding: 8px; }
+.compare-frame.mobile .cta-section h2 { font-size: 18px; margin-bottom: 16px; }
+.compare-frame.mobile .cta-btn { display: block; padding: 16px; font-size: 16px; }
+.compare-grid { display: grid; grid-template-columns: 1fr 375px; gap: 16px; }
+@media (max-width: 900px) { .compare-grid { grid-template-columns: 1fr; } }
+
+/* Utility */
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<header class="app-head">
+  <h1>MusicMapper · Thin Slice Artifacts</h1>
+  <span class="badge">7 samples</span>
+  <span class="badge">deterministic seed</span>
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="maps">Sample Maps</button>
+    <button class="tab-btn" data-tab="pages">Comparison Pages</button>
+  </nav>
+</header>
+
+<main>
+  <p class="intro">
+    7 sample music maps for Wizard-of-Oz user testing. Each map is 1200×800 SVG, deterministically laid out (re-renders identical on reload).
+    Tab 1: maps alone — click "Download PNG" to save. Tab 2: full landing-page preview per sample (desktop + mobile side-by-side) — screenshot or print to PDF.
+    Hosting: deploy this single file via GitHub Pages by pushing <code>docs/thin-slice-site/</code> and enabling Pages on the <code>docs/</code> folder.
+  </p>
+
+  <section id="maps-section">
+    <!-- map cards injected here -->
+  </section>
+
+  <section id="pages-section" class="hidden">
+    <!-- compare cards injected here -->
+  </section>
+</main>
+
+<script>
+// =====================================================
+// Sample profiles
+// =====================================================
+const PALETTE = ['#E63946', '#457B9D', '#F1A208', '#2A9D8F', '#6A4C93', '#B71C2C', '#2C5570'];
+
+const SAMPLES = [
+  { id: 'A', name: '인디감성러', subtitle: '20대 후반 · 평일 늦은 밤 · 한국 인디 + 일본 시티팝 중심',
+    caption: '인디 + 시티팝 중심이네요',
+    clusters: [['K-indie', 12], ['시티팝', 8], ['록', 5], ['재즈', 2]] },
+  { id: 'B', name: '힙합헤드', subtitle: '20대 초반 · 출퇴근·운동 청취 · 한국 힙합 + 글로벌 트랩',
+    caption: '한국 힙합 + 트랩 중심이네요',
+    clusters: [['K-hip-hop', 14], ['트랩', 9], ['R&B', 6], ['이전세대 힙합', 3]] },
+  { id: 'C', name: '재즈+클래식 잔잔', subtitle: '30대 · 카페·재택 BGM · 보컬 적은 잔잔한 음악',
+    caption: '잔잔한 재즈와 클래식을 좋아하네요',
+    clusters: [['모던재즈', 11], ['클래식 솔로', 8], ['앰비언트', 5], ['보사노바', 4], ['시네마틱', 3]] },
+  { id: 'D', name: 'K-pop 메인스트림', subtitle: '10대 후반-20대 초반 · 일상 청취 · K-pop 신곡 + 글로벌 팝',
+    caption: 'K-pop을 광범위하게 즐기네요',
+    clusters: [['K-pop', 18], ['K-pop ballad', 7], ['글로벌팝', 6]] },
+  { id: 'E', name: '장르 잡식', subtitle: '다양한 장르 골고루 · 새 음악 적극 탐색',
+    caption: '장르를 가리지 않고 다양하게 듣네요',
+    clusters: [['일렉트로닉', 7], ['인디록', 6], ['힙합', 5], ['R&B', 4], ['메탈', 3], ['포크', 3], ['재즈', 2]] },
+  { id: 'F', name: '록 + 메탈 진성팬', subtitle: '30대 · 록 페스티벌·콘서트 적극 참여 · 80-90s 클래식 + 현대 록',
+    caption: '록과 메탈에 진심이네요',
+    clusters: [['헤비메탈', 9], ['90s 얼터너티브', 7], ['모던 록', 6], ['펑크', 4]] },
+  { id: 'G', name: '발라드 위주', subtitle: '감정 청취 · 가사 중심 · 한국 발라드 + 글로벌 어쿠스틱',
+    caption: '발라드를 중심으로 감성 청취하네요',
+    clusters: [['K-ballad', 13], ['어쿠스틱 발라드', 7], ['인디 포크', 5], ['OST', 3]] }
+];
+
+// =====================================================
+// Seeded PRNG (mulberry32) — deterministic across reloads
+// =====================================================
+function seededRng(seed) {
+  return function() {
+    seed = (seed + 0x6D2B79F5) | 0;
+    let t = seed;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+function hashSeed(str) {
+  let h = 2166136261;
+  for (let i = 0; i < str.length; i++) {
+    h ^= str.charCodeAt(i); h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+// =====================================================
+// Cluster layout — place cluster centers on a ring
+// =====================================================
+function layoutClusterCenters(numClusters, area) {
+  const cx = area.w / 2, cy = area.h / 2;
+  const ringR = Math.min(area.w, area.h) / 2 - area.padding;
+  if (numClusters === 1) return [{ cx, cy }];
+  if (numClusters === 2) return [{ cx: cx - ringR * 0.45, cy }, { cx: cx + ringR * 0.45, cy }];
+  return Array.from({ length: numClusters }, (_, i) => {
+    const angle = (i / numClusters) * Math.PI * 2 - Math.PI / 2;
+    const r = ringR * (0.45 + ((i % 2) ? 0.08 : 0));
+    return { cx: cx + Math.cos(angle) * r, cy: cy + Math.sin(angle) * r };
+  });
+}
+
+// =====================================================
+// Render single SVG sample map
+// =====================================================
+function renderSampleMap(sample, opts = {}) {
+  const W = opts.W || 1200, H = opts.H || 800;
+  const scatterX = (W - 800) / 2, scatterY = 140;
+  const scatterArea = { w: 800, h: 480, padding: 70 };
+  const rng = seededRng(hashSeed(sample.id));
+
+  // Layout cluster centers within scatter area (offset by scatterX/Y)
+  const centers = layoutClusterCenters(sample.clusters.length, scatterArea)
+    .map(c => ({ cx: c.cx + scatterX, cy: c.cy + scatterY }));
+
+  // Generate points per cluster
+  const clusterPoints = sample.clusters.map(([name, count], i) => {
+    const center = centers[i];
+    const spreadBase = 30 + count * 3.5;
+    const points = [];
+    for (let j = 0; j < count; j++) {
+      const angle = rng() * Math.PI * 2;
+      const r = Math.sqrt(rng()) * spreadBase;
+      points.push({
+        x: center.cx + Math.cos(angle) * r,
+        y: center.cy + Math.sin(angle) * r
+      });
+    }
+    return { name, count, center, points, color: PALETTE[i % PALETTE.length], spread: spreadBase };
+  });
+
+  let svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" style="background:white;">`;
+
+  // Light grid
+  svg += `<defs>
+    <pattern id="grid-${sample.id}" width="80" height="80" patternUnits="userSpaceOnUse">
+      <path d="M 80 0 L 0 0 0 80" fill="none" stroke="#F5F5F5" stroke-width="1"/>
+    </pattern>
+  </defs>`;
+  svg += `<rect x="${scatterX - 20}" y="${scatterY - 20}" width="${scatterArea.w + 40}" height="${scatterArea.h + 40}" fill="url(#grid-${sample.id})"/>`;
+
+  // Title
+  svg += `<text x="${scatterX}" y="60" font-family="Pretendard, Inter, sans-serif" font-size="32" font-weight="700" fill="#111">${escapeXml(sample.name)}</text>`;
+  svg += `<text x="${scatterX}" y="92" font-family="Pretendard, Inter, sans-serif" font-size="16" fill="#666">${escapeXml(sample.subtitle)}</text>`;
+
+  // Cluster hulls (rendered first, behind points)
+  clusterPoints.forEach(c => {
+    const r = c.spread + 25;
+    svg += `<circle cx="${c.center.cx.toFixed(1)}" cy="${c.center.cy.toFixed(1)}" r="${r.toFixed(1)}" fill="${c.color}" fill-opacity="0.15"/>`;
+  });
+
+  // Points (rendered on top of hulls)
+  clusterPoints.forEach(c => {
+    c.points.forEach(p => {
+      svg += `<circle cx="${p.x.toFixed(1)}" cy="${p.y.toFixed(1)}" r="12" fill="${c.color}"/>`;
+    });
+  });
+
+  // Legend at bottom
+  const legendY = H - 60;
+  let legendX = scatterX;
+  clusterPoints.forEach(c => {
+    svg += `<circle cx="${legendX + 8}" cy="${legendY}" r="8" fill="${c.color}"/>`;
+    svg += `<text x="${legendX + 24}" y="${legendY + 6}" font-family="Pretendard, Inter, sans-serif" font-size="16" fill="#333">${escapeXml(c.name)} ${c.count}</text>`;
+    const wEst = (c.name.length * 9) + String(c.count).length * 9 + 70;
+    legendX += wEst;
+  });
+
+  svg += `</svg>`;
+  return svg;
+}
+
+function escapeXml(s) {
+  return s.replace(/[<>&'"]/g, ch => ({ '<': '&lt;', '>': '&gt;', '&': '&amp;', "'": '&apos;', '"': '&quot;' }[ch]));
+}
+
+// =====================================================
+// Render Tab 1 — map cards
+// =====================================================
+function renderMapsTab() {
+  const container = document.getElementById('maps-section');
+  container.innerHTML = SAMPLES.map(s => `
+    <div class="map-card">
+      <div class="map-card-head">
+        <span class="id">Sample ${s.id}</span>
+        <h3 class="title">${s.name}</h3>
+        <button class="download" onclick="downloadMap('${s.id}')">Download PNG</button>
+      </div>
+      <div id="map-svg-${s.id}">${renderSampleMap(s)}</div>
+    </div>
+  `).join('');
+}
+
+// =====================================================
+// Render Tab 2 — comparison page previews (desktop + mobile)
+// =====================================================
+function renderPagesTab() {
+  const container = document.getElementById('pages-section');
+  container.innerHTML = SAMPLES.map(s => {
+    const smallMap = renderSampleMap(s, { W: 1200, H: 800 });
+    return `
+    <div class="compare-card">
+      <div class="frame-head">
+        <span class="id">Sample ${s.id} · ${s.name}</span>
+        <span>Desktop 1200px / Mobile 375px (iPhone SE 2020)</span>
+        <button class="copy-btn" onclick="copyShareUrl('${s.id}')">Copy share URL pattern</button>
+        <button class="download-png" onclick="downloadPage('${s.id}')">Download full page PNG</button>
+      </div>
+      <div class="compare-grid">
+        <div class="compare-frame">
+          <div class="logo">MusicMapper</div>
+          <h1>누군가의 음악 지도를 받았어요?</h1>
+          <div class="caption">이 사람은 ${s.caption}</div>
+          <div class="sample-area">${smallMap}</div>
+          <div class="cta-section">
+            <h2>💭 당신의 음악 지도는 어떻게 생겼을까요?</h2>
+            <button class="cta-btn">내 지도 만들기 (30초)</button>
+            <div class="subtext">플레이리스트 URL 또는 곡 5개만 알려주세요</div>
+          </div>
+          <div class="footer">Made by MusicMapper · 개인정보 · 연락</div>
+        </div>
+        <div class="compare-frame mobile">
+          <div class="logo">MusicMapper</div>
+          <h1>누군가의 음악 지도를 받았어요?</h1>
+          <div class="caption">이 사람은 ${s.caption}</div>
+          <div class="sample-area">${smallMap}</div>
+          <div class="cta-section">
+            <h2>💭 당신의 음악 지도는 어떻게 생겼을까요?</h2>
+            <button class="cta-btn">내 지도 만들기 (30초)</button>
+            <div class="subtext">플레이리스트 URL 또는 곡 5개만 알려주세요</div>
+          </div>
+          <div class="footer">Made by MusicMapper</div>
+        </div>
+      </div>
+    </div>
+  `;
+  }).join('');
+}
+
+// =====================================================
+// Download SVG as PNG (via Canvas)
+// =====================================================
+function downloadMap(sampleId) {
+  const sample = SAMPLES.find(s => s.id === sampleId);
+  const svgString = renderSampleMap(sample);
+  svgToPng(svgString, 1200, 800, `musicmapper-sample-${sampleId}.png`);
+}
+
+function downloadPage(sampleId) {
+  // Find the compare-card for this sample, then use html2canvas-like approach.
+  // Simpler: just download the map (the page is mostly static); user screenshots manually for full page.
+  // Provide a hint instead.
+  alert('전체 페이지 PNG는 브라우저 스크린샷 도구(Cmd+Shift+4 macOS / Win+Shift+S Windows)를 사용해주세요. 지도만 PNG로 받으려면 Tab 1의 Download PNG를 사용하세요.');
+}
+
+function svgToPng(svgString, width, height, filename) {
+  const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext('2d');
+    ctx.fillStyle = 'white'; ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width, height);
+    URL.revokeObjectURL(url);
+    canvas.toBlob((pngBlob) => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(pngBlob);
+      a.download = filename;
+      document.body.appendChild(a); a.click(); document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    }, 'image/png');
+  };
+  img.onerror = (e) => { console.error('SVG load failed', e); alert('PNG 생성 실패 — 콘솔 확인'); };
+  img.src = url;
+}
+
+function copyShareUrl(sampleId) {
+  const url = `https://your-username.github.io/MusicMapper/thin-slice-site/?sample=${sampleId}`;
+  navigator.clipboard.writeText(url).then(
+    () => alert(`복사됨: ${url}\n(your-username 부분만 본인 GitHub username으로 교체)`),
+    () => alert(`복사 실패. 수동 복사:\n${url}`)
+  );
+}
+
+// =====================================================
+// Tab switching
+// =====================================================
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const tab = btn.dataset.tab;
+    document.getElementById('maps-section').classList.toggle('hidden', tab !== 'maps');
+    document.getElementById('pages-section').classList.toggle('hidden', tab !== 'pages');
+    // Lazy-render Pages tab on first view
+    if (tab === 'pages' && !document.getElementById('pages-section').dataset.rendered) {
+      renderPagesTab();
+      document.getElementById('pages-section').dataset.rendered = 'true';
+    }
+  });
+});
+
+// Initial render
+renderMapsTab();
+
+</script>
+
+</body>
+</html>
